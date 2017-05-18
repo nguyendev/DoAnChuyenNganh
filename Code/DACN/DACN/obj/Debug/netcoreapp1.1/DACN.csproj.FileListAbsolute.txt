@@ -1,0 +1,10 @@
+C:\Users\NGUYENIT\DoAnChuyenNganh\Code\DACN\DACN\bin\Debug\netcoreapp1.1\DACN.deps.json
+C:\Users\NGUYENIT\DoAnChuyenNganh\Code\DACN\DACN\bin\Debug\netcoreapp1.1\DACN.runtimeconfig.json
+C:\Users\NGUYENIT\DoAnChuyenNganh\Code\DACN\DACN\bin\Debug\netcoreapp1.1\DACN.runtimeconfig.dev.json
+C:\Users\NGUYENIT\DoAnChuyenNganh\Code\DACN\DACN\bin\Debug\netcoreapp1.1\DACN.dll
+C:\Users\NGUYENIT\DoAnChuyenNganh\Code\DACN\DACN\bin\Debug\netcoreapp1.1\DACN.pdb
+C:\Users\NGUYENIT\DoAnChuyenNganh\Code\DACN\DACN\obj\Debug\netcoreapp1.1\DACN.csprojResolveAssemblyReference.cache
+C:\Users\NGUYENIT\DoAnChuyenNganh\Code\DACN\DACN\obj\Debug\netcoreapp1.1\UserSecretsAssemblyInfo.cs
+C:\Users\NGUYENIT\DoAnChuyenNganh\Code\DACN\DACN\obj\Debug\netcoreapp1.1\DACN.AssemblyInfo.cs
+C:\Users\NGUYENIT\DoAnChuyenNganh\Code\DACN\DACN\obj\Debug\netcoreapp1.1\DACN.dll
+C:\Users\NGUYENIT\DoAnChuyenNganh\Code\DACN\DACN\obj\Debug\netcoreapp1.1\DACN.pdb
