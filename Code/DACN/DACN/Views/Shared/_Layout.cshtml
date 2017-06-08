@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - DACN</title>
-
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <environment names="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="~/css/site.css" />
@@ -17,9 +17,10 @@
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
     </environment>
     @Html.Raw(JavaScriptSnippet.FullScript)
+    @RenderSection("Css", required: false)
 </head>
 <body>
-    <nav class="navbar navbar-inverse navbar-fixed-top">
+    @*<nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -39,7 +40,7 @@
                 @await Html.PartialAsync("_LoginPartial")
             </div>
         </div>
-    </nav>
+    </nav>*@
     <div class="container body-content">
         @RenderBody()
         <hr />
