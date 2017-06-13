@@ -4,38 +4,36 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Text;
 using System.Net;
 using HtmlAgilityPack;
-using Fizzler.Systems.HtmlAgilityPack;
-using System.Threading;
+using System.Xml;
 using DACN.Models;
+using DACN.Services;
+using System.Xml;
+using Microsoft.CodeAnalysis;
+using System.IO;
 
 namespace DACN.Controllers
 {
     public class HomeController : Controller
     {
 
-        public async Task<List<Search>> getContentGoogleAsync(string Search)
+        public async Task<List<SearchViewModel>> getContentGoogleAsync(string Search, int number)
         {
-            string url = "https://www.google.com.vn/search?num=" + 10 + "&q=" + Search +
+            string url = "https://www.google.com.vn/search?num=" + number + "&q=" + Search +
                 "&ie=utf-8&oe=utf-8";
-            List<Search> listSearch= new List<Search>();
+            List<SearchViewModel> listSearch= new List<SearchViewModel>();
             HttpClient http = new HttpClient();
             var response = await http.GetByteArrayAsync(url);
             String source = Encoding.GetEncoding("utf-8").GetString(response, 0, response.Length - 1);
             source = WebUtility.HtmlDecode(source);
-            //HtmlDocument document = new HtmlDocument();
-            HtmlWeb htmlWeb = new HtmlWeb()
-            {
-                AutoDetectEncoding = false,
-                OverrideEncoding = Encoding.UTF8  //Set UTF8 để hiển thị tiếng Việt
-            };
+            HtmlDocument document = new HtmlDocument();
+          
 
-            //Load trang web, nạp html vào document
-            HtmlDocument document = htmlWeb.Load(url);
-            //document.LoadHtml(source);
+            // Load trang web, nạp html vào document
+            // HtmlDocument document = htmlWeb.Load(url);
+            document.LoadHtml(source);
             ViewData["Text"] = source;
             var threadItems = document.DocumentNode.SelectNodes(".//div[@class='g']").ToList();
             foreach (var item in threadItems)
@@ -44,9 +42,11 @@ namespace DACN.Controllers
                 {
                     var linkNode = item.SelectSingleNode(".//h3[@class='r']/a");
                     var link = linkNode.Attributes["href"].Value;
-                    var text = linkNode.InnerText;
+                    //Format UTF 8
+                    link = System.Uri.UnescapeDataString(link);
+                    var title = linkNode.InnerText;
                     var Desciption = item.SelectSingleNode(".//span[@class='st']").InnerText;
-                    listSearch.Add(new Search(text, Desciption, link));
+                    listSearch.Add(new SearchViewModel(title, Desciption, link));
                 }
                 catch { }
             }
@@ -55,27 +55,23 @@ namespace DACN.Controllers
 
             //var threadItems = document.DocumentNode.QuerySelectorAll("div#rso > div").ToList();
             //if (threadItems != null)
+            SessionGoogle.SetSessionGoogleSearch(listSearch, this.HttpContext);
             return listSearch;
         }
-        public async Task<IActionResult> Index(string searchString)
+      
+        
+
+        public async Task<IActionResult> Index(string searchString, string number)
         {
+           
 
-            //List<HtmlNode> toftitle = resultat.DocumentNode.Descendants().Where
-            //    (x => (x.Name == "div" && x.Attributes["class"] != null &&
-            //    x.Attributes["class"].Value.Contains("block_content"))).ToList();
-
-            //var li = toftitle[6].Descendants("li").ToList();
-            //foreach (var item in li)
-            //{
-            //    var link = item.Descendants("a").ToList()[0].GetAttributeValue("href", null);
-            //    var img = item.Descendants("img").ToList()[0].GetAttributeValue("src", null);
-            //    var title = item.Descendants("h5").ToList()[0].InnerText;
-            //}
-            var items = new List<Search>();
-            if (!String.IsNullOrEmpty(searchString))
+            
+            var items = new List<SearchViewModel>();
+            if (!String.IsNullOrEmpty(searchString) && !String.IsNullOrEmpty(number))
             {
-                
-                items =  await getContentGoogleAsync(searchString);
+                ViewData["currentNumber"] = Int32.Parse(number);
+                items =  await getContentGoogleAsync(searchString, Int32.Parse(number));
+
             }
             if(items.Count > 0)
                 return View(items);

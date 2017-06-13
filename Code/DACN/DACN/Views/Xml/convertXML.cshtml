@@ -1,0 +1,60 @@
+@model List<DACN.Models.XmlViewModels.ParserViewModel>
+@{ 
+    ViewData["Title"] = "Phương pháp XML";
+}
+<div class="text-center">
+    <h2 class="text-primary bg-success">@ViewData["Title"]</h2>
+</div>
+<div class="">
+    <ol class="breadcrumb">
+        <li><a href="#">Trang chủ</a></li>
+        <li><a href="#">Phương pháp XML</a></li>
+        <li class="active">Html thành XML</li>
+    </ol>
+</div>
+<div class="row">
+    @if (Model == null)
+    {
+        <h2 class="text-danger">Không có dữ liệu</h2>
+    }
+    else
+    {
+        <div class="">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h2>Bước 1: Parser dữ liệu</h2>
+                </div>
+                <div class="panel-body">
+
+                    @{
+                        int color = 1;
+                        int number = 0;
+                    }
+                    @foreach (var item in Model)
+                    {
+                        if (color == 1)
+                        {
+                            ViewData["color"] = "bg-success";
+                            color = 2;
+                        }
+                        else
+                        {
+                            color = 1;
+                            ViewData["color"] = "";
+                        }
+                        number++;
+                        <br /><hr />
+                                <div class="single-parser @ViewData["color"]" style="padding: 20px;">
+                                    <h1>@number. @Html.DisplayFor(modelItem => item.Title)</h1>
+                                    <p>Địa chỉ: <a href="@Html.DisplayFor(modelItem => item.Link)">@Html.DisplayFor(modelItem => item.Link)</a></p>
+
+                                    <p>@Html.DisplayFor(modelItem => item.Content)</p>
+                                </div>
+                                <br /><hr />
+                    }
+                </div>
+            </div>
+        </div>
+
+                        }
+</div>

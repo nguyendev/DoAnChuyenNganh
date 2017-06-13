@@ -48,7 +48,14 @@ namespace DACN
                 .AddDefaultTokenProviders();
 
             services.AddMvc();
-
+            services.AddSession();
+            services.AddDistributedMemoryCache();
+            //services.AddDistributedSqlServerCache(o =>
+            //{
+            //    o.ConnectionString = "Server=(localdb)\\mssqllocaldb;Database=DACN;Trusted_Connection=True;MultipleActiveResultSets=true";
+            //    o.SchemaName = "dbo";
+            //    o.TableName = "Sessions";
+            //});
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
@@ -76,7 +83,7 @@ namespace DACN
             app.UseIdentity();
 
             // Add external authentication middleware below. To configure them please see https://go.microsoft.com/fwlink/?LinkID=532715
-
+            app.UseSession();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

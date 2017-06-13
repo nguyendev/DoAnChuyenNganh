@@ -1,48 +1,131 @@
-﻿
-@model List<Search>
+﻿@{ 
+    ViewData["Title"] = "Tìm kiếm với Google";
+}
+@model List<SearchViewModel>
 <hr />
 <div class="row">
     @*<h2 class="text-center text-primary">Tìm kiếm với google</h2>*@
+    
     <div class="search">
         <div class="row">
             <div class="col-md-2"></div>
             <div class="col-md-8 col-sm-12">
-                <img src="~/images/Google-Logo.svg" class="img-responsive" />
+                <div class="row">
+                    <div class="col-md-3"></div>
+                    <div class="col-md-6">
+                        <img src="~/images/Google-Logo.svg" class="img-responsive"/>
+                    </div>
+                </div>
+               
                 <div id="custom-search-input">
                     <form asp-action="Index" method="get">
-                        <div class="input-group col-md-12">
-                            <input type="text" name="searchString" class="  search-query form-control" placeholder="Tìm kiếm" />
-                            <span class="input-group-btn">
-                                <button class="btn btn-danger" type="submit">
-                                    <span class=" glyphicon glyphicon-search"></span>
-                                </button>
-                            </span>
+                        <div class="col-md-9">
+                            <div class="input-group ">
+                                <input type="text" name="searchString" class="  search-query form-control" placeholder="Tìm kiếm" />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-danger" type="submit">
+                                        <span class=" glyphicon glyphicon-search"></span>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-group">
+                                <input type="search" name="Number" value="5" class="form-control" placeholder="Số lượng" aria-controls="example1">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-danger">
+                                        <span class="glyphicon glyphicon-new-window"></span>
+                                    </button>
+                                </span>
+                                
+                            </div>
+                           
                         </div>
                     </form>
                 </div>
+
+               
             </div>
         </div>
     </div>
-    <div class="">
+    <div class="search-body">
         <br /><br /><hr />
-        @if (Model != null)
-        {
-            <h2>Kết quả tìm được: </h2>
-            int number = 0;
-            @foreach (var item in Model)
-            {
-                number++;
-                <div class="">
-                    <hr />
-                    <h3 class=""><a href="@Html.DisplayFor(modelItem => item.Link)">@number. @Html.DisplayFor(modelItem => item.Title)</a></h3>
-                    <div class="Description">
-                        @Html.DisplayFor(modelItem => item.Description)
+        <div class="">
+            <ol class="breadcrumb">
+                <li><a href="#">Trang chủ</a></li>
+                <li class="active">Tìm kiếm</li>
+            </ol>
+        </div>
+            <div class="row">
+               
+                <div class="col-md-8">
+
+                    @if (Model != null)
+                    {
+                        int number = 0;
+                        int bgColor = 1;
+                        <div class="panel panel-primary">
+                            <!-- Default panel contents -->
+                            <div class="panel-heading"><h2>Kết quả tìm được: </h2></div>
+                            <div class="panel-body">
+                                @foreach (var item in Model)
+                                {
+                                    if (bgColor == 1)
+                                    {
+                                        bgColor = 2;
+                                        ViewData["BGColor"] = "bg-warning";
+                                    }
+                                    else
+                                    {
+                                        bgColor = 1;
+                                        ViewData["BGColor"] = "bg-success";
+                                    }
+                                    number++;
+                                    <hr />
+                                    <div class="@ViewData["BGColor"]" style="padding: 10px">
+                                            <h3 class=""><a href="@Html.DisplayFor(modelItem => item.Link)">@number. @Html.DisplayFor(modelItem => item.Title)</a></h3>
+                                            <div class="Description">
+                                                @Html.DisplayFor(modelItem => item.Description)
+                                            </div>
+                                    </div>
+                                    <hr />
+                                }
+                            </div>
+                           
+                        </div>
+                            }
+                        </div>
+                @if(Model != null) {
+                <div class="col-md-4">
+                    <div class="panel panel-primary">
+                        <div class="panel panel-heading">
+                            <h2 class="">Phương pháp</h2>
+                        </div>
+                        <div class="panel-body">
+                                <form asp-action="convertXML" asp-controller="Xml">
+                                    <button type="submit" class="btn btn-primary btn-group">1. Dựa trên XML</button>
+                                </form>
+                                <hr />
+                                <form asp-action="parser" asp-controller="crfs">
+                                    <button type="submit" class="btn btn-warning btn-group">2. Sử dụng CRFs</button>
+                                </form>
+                                <hr />
+                                <form asp-action="" asp-controller="">
+                                    <button type="submit" class="btn btn-success btn-group">3. Sử dụng SVM</button>
+                                </form>
+                                <hr />
+                                <form asp-action="" asp-controller="">
+                                    <button type="submit" class="btn btn-danger btn-group">4. Sử dụng CRFs-SVM</button>
+                                </form>
+                            </div>
+                        <div class="panel-footer">
+                        </div>
                     </div>
 
-                    <hr />
                 </div>
-            }
-        }
+                }
+            </div>
+        
     </div>
 </div>
   

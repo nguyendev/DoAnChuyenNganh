@@ -5,14 +5,14 @@ using System.Threading.Tasks;
 
 namespace DACN.Models
 {
-    public class Search
+    public class SearchViewModel
     {
         public string Title { get; set; }
 
         public string Description { get; set; }
         public string Link { get; set; }
 
-        public Search(string Title, string Description, string Link)
+        public SearchViewModel(string Title, string Description, string Link)
         {
             this.Title = Title;
             this.Description = Description;

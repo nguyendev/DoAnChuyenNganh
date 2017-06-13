@@ -23,6 +23,6 @@ namespace DACN.Data
             // Add your customizations after calling base.OnModelCreating(builder);
         }
 
-        public DbSet<DACN.Models.Search> Search { get; set; }
+        public DbSet<DACN.Models.SearchViewModel> Search { get; set; }
     }
 }
