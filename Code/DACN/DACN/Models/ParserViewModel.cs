@@ -15,13 +15,14 @@ namespace DACN.Models
         
         public string Title { get; set; }
 
-        public string[,,,] Content { get; set; }
+        public Content Content { get; set; }
+        public string[] Text { get; set; }
     
-        public ParserViewModel(string Title, string Link, string[,,,] Content)
+        public ParserViewModel(string Title, string Link, string[] Text)
         {
             this.Title = Title;
             this.Link = Link;
-            this.Content = Content;
+            this.Text = Text;
         }
     }
 }

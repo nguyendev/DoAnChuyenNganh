@@ -14,6 +14,7 @@
 
   <ItemGroup>
     <Content Include="wwwroot\images\Google-Logo.svg" />
+    <Content Include="wwwroot\images\VnExpress_logo.png" />
     <Content Include="wwwroot\styles.css" />
   </ItemGroup>
   <ItemGroup>
@@ -44,6 +45,7 @@
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.1" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Views\Vnexpress\" />
     <Folder Include="Views\Xml\" />
   </ItemGroup>
 

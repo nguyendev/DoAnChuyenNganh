@@ -18,7 +18,7 @@ namespace DACN.Controllers
 {
     public class HomeController : Controller
     {
-
+      
         public async Task<List<SearchViewModel>> getContentGoogleAsync(string Search, int number)
         {
             string url = "https://www.google.com.vn/search?num=" + number + "&q=" + Search +

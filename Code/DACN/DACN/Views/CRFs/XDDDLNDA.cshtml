@@ -1,0 +1,66 @@
+
+@{
+    ViewData["Title"] = "XDDDLNDA";
+}
+
+@model List<DACN.Models.CRFsViewModels.CXacDinhDongDLNDViewModel>
+    <div class="row">
+        @if (Model == null)
+        {
+            <h2 class="text-danger">Không có dữ liệu</h2>
+        }
+        else
+        {
+            <div class="">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h2>Bước 2: Xác định dòng dữ liệu nội dung</h2>
+                    </div>
+                    <div class="panel-body">
+
+                        @{
+                            int color = 1;
+                            int number = 1;
+                        }
+                        @foreach (var item in Model)
+                        {
+                            if (color == 1)
+                            {
+                                ViewData["color"] = "bg-success";
+                                color = 2;
+                            }
+                            else
+                            {
+                                color = 1;
+                                ViewData["color"] = "";
+                            }
+                            <br />
+                                <div class="single-parser @ViewData["color"]" style="padding: 20px;">
+                                    <h1><a href="@Html.DisplayFor(modelItem => item.Link)">@number. @Html.DisplayFor(modelItem => item.Title)</a></h1>
+                                    @{
+                                        number++;
+
+                                    }
+                                    @for (int i = 0; i < item.Text.Count(); i++)
+                                    {
+                                        <p>@item.Text[i]</p>
+                                    }
+                                </div>
+                                <br />
+                                        }
+                    </div>
+
+
+
+                </div>
+                <div class="">
+                    <form asp-action="">
+                        <button type="submit" class="btn btn-primary pull-right">Tiếp tục</button>
+                    </form>
+                    <a href="" class="btn btn-default pull-left">Quay lại</a>
+
+                </div>
+            </div>
+
+                                        }
+    </div>

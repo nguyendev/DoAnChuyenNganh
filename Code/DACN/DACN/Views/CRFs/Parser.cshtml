@@ -15,57 +15,46 @@
                                <div class="panel-body">
 
                                    @{
-                                   int color = 1;
-
+                                       int color = 1;
+                                       int number = 1;
                                    }
                                    @foreach (var item in Model)
-                               {
-                                   if (color == 1)
                                    {
-                                       ViewData["color"] = "bg-success";
-                                       color = 2;
-                                   }
-                                   else
-                                   {
-                                       color = 1;
-                                       ViewData["color"] = "";
-                                   }
-                                   <br /><hr />
-                                   <div class="single-parser @ViewData["color"]" style="padding: 20px;">
-                                       <h1>@Html.DisplayFor(modelItem => item.Title)</h1>
-                                       <p>@Html.DisplayFor(modelItem => item.Link)</p>
-                                       <p>@Html.DisplayFor(modelItem => item.Content)</p>
-
-                                       @for (int h2 = 0; h2 < ParserViewModel.MAX_H2_LENGTH; h2++)
+                                       if (color == 1)
                                        {
-                                           for (int h3 = 0; h3 < ParserViewModel.MAX_H3_LENGTH; h3++)
-                                           {
-
-                                               for (int h4 = 0; h4 < ParserViewModel.MAX_H4_LENGTH; h4++)
-                                               {
-
-
-                                                   for (int text = 0; text < ParserViewModel.MAX_TEXT_LENGTH; text++)
-                                                   {
-                                                       try
-                                                       {
-                                                           if (!String.IsNullOrEmpty(item.Content[h2, h3, h4, text]))
-                                                           {
-
-                                                               <p>@item.Content[h2, h3, h4, text]</p>
-                                                           }
-                                                       }
-                                                       catch { }
-
-                                                   }
-                                               }
-                                           }
+                                           ViewData["color"] = "bg-success";
+                                           color = 2;
                                        }
-                            
+                                       else
+                                       {
+                                           color = 1;
+                                           ViewData["color"] = "";
+                                       }
+                                   <br />
+                                   <div class="single-parser @ViewData["color"]" style="padding: 20px;">
+                                       <h1><a href="@Html.DisplayFor(modelItem => item.Link)">@number. @Html.DisplayFor(modelItem => item.Title)</a></h1>
+                                       @{ 
+                                           number++;
+                                           
+                                       }
+                                       @for(int i = 0; i < item.Text.Count(); i++)
+                                       {
+                                           <p>@item.Text[i]</p>
+                                       }
                                    </div>
-                                   <br /><hr />
+                                   <br />
                                }
                                </div>
+
+                               
+                              
+                           </div>
+                           <div class="">
+                               <form asp-action="XDDDLNDA">
+                                   <button type="submit" class="btn btn-primary pull-right">Tiếp tục</button>
+                               </form>
+                               <a href="" class="btn btn-default pull-left">Quay lại</a>
+
                            </div>
                        </div>
                       
