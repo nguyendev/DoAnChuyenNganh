@@ -1,0 +1,75 @@
+@model List<DACN.Models.NhanDienMauViewModels.NhanDienMauViewModel>
+@{
+    ViewData["Title"] = "Index";
+}
+<div class="row">
+    @if (Model == null)
+    {
+        <h2 class="text-danger">Không có dữ liệu</h2>
+    }
+    else
+    {
+        <div class="">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h2>Kết quả lấy thông tin</h2>
+                </div>
+                <div class="panel-body">
+
+                    @{
+                        int color = 1;
+                        int number = 1;
+                    }
+                    @foreach (var item in Model)
+                    {
+                        if (color == 1)
+                        {
+                            ViewData["color"] = "bg-success";
+                            color = 2;
+                        }
+                        else
+                        {
+                            color = 1;
+                            ViewData["color"] = "";
+                        }
+                        <br />
+                                <div class="single-parser @ViewData["color"]" style="padding: 20px;">
+                                    <div class="row">
+                                        <div class="col-md-10">
+                                            <h1><a href="@Html.DisplayFor(modelItem => item.Url)">@number. @Html.DisplayFor(modelItem => item.H1)</a></h1>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="alert alert-warning" role="alert">@Html.DisplayFor(modelItem => item.Template)</div>
+                                        </div>
+                                    </div>
+                                    <div class="text-info">
+                                        @{
+                                            number++;
+                                        }
+                                        @if (item.P != null)
+                                        {
+                                            @for (int i = 0; i < item.P.Count(); i++)
+                                            {
+                                                <p>@item.P[i]</p>
+                                            }
+                                        }
+                                    </div>
+                                </div>
+                                <br />
+                                        }
+                </div>
+
+
+
+            </div>
+            @*<div class="">
+                <form asp-action="XDDDLNDA">
+                    <button type="submit" class="btn btn-primary pull-right">Tiếp tục</button>
+                </form>
+                <a href="" class="btn btn-default pull-left">Quay lại</a>
+
+            </div>*@
+        </div>
+
+                                        }
+</div>

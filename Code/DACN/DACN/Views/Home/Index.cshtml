@@ -97,7 +97,7 @@
                         </div>
                 @if(Model != null) {
                 <div class="col-md-4">
-                    <div class="panel panel-primary">
+                    <div class="panel panel-primary text-center">
                         <div class="panel panel-heading">
                             <h2 class="">Phương pháp</h2>
                         </div>
@@ -116,6 +116,10 @@
                                 <hr />
                                 <form asp-action="" asp-controller="">
                                     <button type="submit" class="btn btn-danger btn-group">4. Sử dụng CRFs-SVM</button>
+                                </form>
+                            <hr />
+                                <form asp-action="index" asp-controller="NhanDienMau">
+                                    <button type="submit" class="btn btn-primary btn-group">5. Nhận diện mẫu</button>
                                 </form>
                             </div>
                         <div class="panel-footer">

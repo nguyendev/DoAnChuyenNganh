@@ -18,18 +18,8 @@ namespace DACN.Services
         {
             try
             {
-                HttpClient http = new HttpClient();
-                //Format UTF 8
-                var link = System.Uri.UnescapeDataString(Search.Link);
-
-                var response = await http.GetByteArrayAsync(link);
-                String source = Encoding.GetEncoding("utf-8").GetString(response, 0, response.Length - 1);
-                source = WebUtility.HtmlDecode(source);
-
                 HtmlDocument document = new HtmlDocument();
-                //Load trang web, nạp html vào document
-                document.LoadHtml(source);
-
+                document = await HtmlAgilityPackServices.InitAsync(Search.Link);
 
                 var threadItems = document.DocumentNode.SelectNodes(".//div").ToList();
                 Content content = new Content();
@@ -176,7 +166,7 @@ namespace DACN.Services
             return null;
         }
 
-        public static CXacDinhDongDLNDViewModel XacDinhDongDuLieuNoiDung(ParserViewModel oldModel)
+        public static CXacDinhDongDLNDViewModel KetNoiThanhCumDuLieuAsync(ParserViewModel oldModel)
         {
             //kiem tra so luong tu de xac dinh do co phai noi dung khong
             string[] temp = new string[2000];
@@ -196,6 +186,23 @@ namespace DACN.Services
                 Text[i] = temp[i];
             }
             return new CXacDinhDongDLNDViewModel(oldModel.Title, oldModel.Link, Text) ;
+        }
+
+        public async Task<CXacDinhDongDLNDViewModel> KetNoiThanhCumDuLieuAsync(CXacDinhDongDLNDViewModel oldModel)
+        {
+            HtmlDocument doc = new HtmlDocument();
+            doc = await HtmlAgilityPackServices.InitAsync(oldModel.Link);
+                for(int i = 0; i < oldModel.Text.Count(); i++)
+                if (doc.DocumentNode.InnerHtml.ToString().Contains(oldModel.Text[i]))
+                {
+                        var parent = doc.DocumentNode.SelectNodes(string.Format("//*[contains(text(),'{0}')]", oldModel.Text[i]));
+                        foreach (var link in parent)
+                        {
+                            Console.WriteLine(link.InnerText);
+                        }
+                    }
+                return null;
+
         }
 
 

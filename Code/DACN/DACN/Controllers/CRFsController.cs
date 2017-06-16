@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using DACN.Models;
 using DACN.Services;
+using DACN.Services.Session.CRFS;
 using DACN.Models.CRFsViewModels;
 
 namespace DACN.Controllers
@@ -35,9 +36,21 @@ namespace DACN.Controllers
             List<CXacDinhDongDLNDViewModel> newList = new List<CXacDinhDongDLNDViewModel>();
             foreach (var item in oldList)
             {
-                newList.Add(CRFSServices.XacDinhDongDuLieuNoiDung(item));
+                newList.Add(CRFSServices.KetNoiThanhCumDuLieuAsync(item));
             }
+            SessionXacDinhDongDuLieuNoiDung.SetSession(newList, this.HttpContext);
             return View(newList);
+        }
+        [Route("CRFs/Buoc-3")]
+        public IActionResult KetNoiThanhCumDuLieu()
+        {
+            List<CXacDinhDongDLNDViewModel> oldList = SessionXacDinhDongDuLieuNoiDung.GetSession(this.HttpContext);
+            List<CXacDinhDongDLNDViewModel> newList = new List<CXacDinhDongDLNDViewModel>();
+            foreach (var item in oldList)
+            {
+                newList.Add(CRFSServices.KetNoiThanhCumDuLieuAsync((ParserViewModel)item));
+            }
+            return View();
         }
     }
 }

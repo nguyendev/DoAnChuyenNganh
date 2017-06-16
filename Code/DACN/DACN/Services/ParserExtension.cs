@@ -24,7 +24,7 @@ namespace DACN.Services
             source = WebUtility.HtmlDecode(source);
             HtmlDocument document = new HtmlDocument();
             document.LoadHtml(source);
-            document = RemoveScripts(document);
+            document = HtmlAgilityPackServices.RemoveScripts(document);
             var text = document.DocumentNode.SelectNodes("//body//text()").Select(node => node.InnerText);
             StringBuilder output = new StringBuilder();
             string[] temp = new string[2000];
@@ -45,22 +45,6 @@ namespace DACN.Services
            // string textOnly = WebUtility.HtmlDecode(output.ToString());
 
         }
-        private static HtmlAgilityPack.HtmlDocument RemoveScripts(HtmlAgilityPack.HtmlDocument webDocument)
-        {
-
-            // Get all Nodes: script
-            HtmlAgilityPack.HtmlNodeCollection Nodes = webDocument.DocumentNode.SelectNodes("//script");
-
-            // Make sure not Null:
-            if (Nodes == null)
-                return webDocument;
-
-            // Remove all Nodes:
-            foreach (HtmlNode node in Nodes)
-                node.Remove();
-
-            return webDocument;
-
-        }
+        
     }
 }

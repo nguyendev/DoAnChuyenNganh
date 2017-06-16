@@ -45,6 +45,7 @@
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.1" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Views\NhanDienMau\" />
     <Folder Include="Views\Vnexpress\" />
     <Folder Include="Views\Xml\" />
   </ItemGroup>

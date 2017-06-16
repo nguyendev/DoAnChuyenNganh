@@ -37,9 +37,11 @@
                                            number++;
                                            
                                        }
-                                       @for(int i = 0; i < item.Text.Count(); i++)
-                                       {
-                                           <p>@item.Text[i]</p>
+                                       @if(item.Text != null){
+                                           @for(int i = 0; i < item.Text.Count(); i++)
+                                           {
+                                               <p>@item.Text[i]</p>
+                                           }
                                        }
                                    </div>
                                    <br />
