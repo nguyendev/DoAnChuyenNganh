@@ -46,7 +46,8 @@ namespace DACN.Controllers
                     link = System.Uri.UnescapeDataString(link);
                     var title = linkNode.InnerText;
                     var Desciption = item.SelectSingleNode(".//span[@class='st']").InnerText;
-                    listSearch.Add(new SearchViewModel(title, Desciption, link));
+                    if(link.Contains("http"))
+                        listSearch.Add(new SearchViewModel(title, Desciption, link));
                 }
                 catch { }
             }
